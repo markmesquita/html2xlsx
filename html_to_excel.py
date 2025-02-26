@@ -4,38 +4,38 @@ from lxml import etree
 from tqdm import tqdm
 
 def extract_html_data(html_file):
-    """Extrai parâmetros da pesquisa e dados da tabela do HTML"""
+    """Extracts search parameters and table data from the HTML file"""
     with open(html_file, "r", encoding="utf-8") as f:
         parser = etree.HTMLParser()
         tree = etree.parse(f, parser)
 
     data = []
 
-    # 📌 1️⃣ Extraindo Parâmetros de Pesquisa (Divs + Listas sem duplicação)
+    # 📌 1️⃣ Extracting Search Parameters (Divs + Lists without duplication)
     params_section = tree.xpath("//div[@class='agr-parametros']")
     if params_section:
-        data.append(["Parâmetros de Pesquisa"])  # Cabeçalho
+        data.append(["Search Parameters"])  # Header
         param_rows = []
 
         for ul in params_section[0].xpath(".//ul"):
             for li in ul.xpath("./li"):
-                strong = li.xpath("./strong/text()")  # Captura o nome do parâmetro
-                value = li.xpath("./text()")  # Captura o valor do parâmetro
+                strong = li.xpath("./strong/text()")  # Get the parameter name
+                value = li.xpath("./text()")  # Get the parameter value
 
                 strong_text = strong[0].strip() if strong else ""
                 value_text = value[0].strip() if value else "-"
 
                 if strong_text:
-                    param_rows.append([strong_text, value_text])  # Adiciona o par chave-valor
+                    param_rows.append([strong_text, value_text])  # Add key-value pair
 
         data.extend(param_rows)
-        data.append([])  # Linha em branco para separar da tabela
+        data.append([])  # Blank row to separate from the table
 
-    # 📌 2️⃣ Extraindo Dados da Tabela
+    # 📌 2️⃣ Extracting Table Data
     table = tree.xpath("//table")
     if table:
-        rows = table[0].xpath(".//tr")  # Obtém todas as linhas da tabela
-        for row in tqdm(rows, desc="🔍 Processando HTML", unit="linha"):
+        rows = table[0].xpath(".//tr")  # Get all table rows
+        for row in tqdm(rows, desc="🔍 Processing HTML", unit="row"):
             row_data = []
             for cell in row.xpath(".//th | .//td"):
                 text = "".join(cell.xpath(".//text()")).strip()
@@ -45,12 +45,12 @@ def extract_html_data(html_file):
     return data
 
 def create_excel_file(data, filename):
-    """Cria um arquivo Excel a partir dos dados extraídos"""
+    """Creates an Excel file from extracted data"""
     wb = openpyxl.Workbook()
     ws = wb.active
-    ws.title = "Relatório"
+    ws.title = "Report"
 
-    for row in tqdm(data, desc="📊 Criando Excel", unit="linha"):
+    for row in tqdm(data, desc="📊 Creating Excel", unit="row"):
         ws.append(row)
 
     for col in ws.columns:
@@ -62,21 +62,21 @@ def create_excel_file(data, filename):
                     max_length = max(max_length, len(str(cell.value)))
             except:
                 pass
-        ws.column_dimensions[col_letter].width = max_length + 2  # Adiciona margem
+        ws.column_dimensions[col_letter].width = max_length + 2  # Add margin
 
     wb.save(filename)
-    print(f"✅ Arquivo Excel salvo como: {filename}")
+    print(f"✅ Excel file saved as: {filename}")
 
 def convert_html_to_excel(html_file, output_excel):
-    """Função principal que lê o HTML e gera o Excel"""
+    """Main function that reads the HTML and generates the Excel file"""
     if not os.path.exists(html_file):
-        print(f"❌ Erro: Arquivo '{html_file}' não encontrado!")
+        print(f"❌ Error: File '{html_file}' not found!")
         return
     
-    print(f"🔍 Lendo o arquivo HTML: {html_file}")
+    print(f"🔍 Reading HTML file: {html_file}")
     table_data = extract_html_data(html_file)
 
-    print(f"📊 Criando o arquivo Excel: {output_excel}")
+    print(f"📊 Creating Excel file: {output_excel}")
     create_excel_file(table_data, output_excel)
 
-    print("✅ Conversão concluída!")
+    print("✅ Conversion completed!")

@@ -1,48 +1,48 @@
 ﻿import sys
 
 def print_help():
-    """Exibe as informações de ajuda sobre o uso da aplicação"""
+    """Displays help information about the usage of the application"""
     help_text = """
-📌 Conversor de HTML para Excel
+  📌 HTML to Excel Converter
 
-Este script converte um arquivo do tipo HTML contendo parâmetros de pesquisa e tabelas em um arquivo Excel (.xlsx).
+  This script converts an HTML file containing search parameters and tables into an Excel file (.xlsx).
 
-🔹 Uso:
-    python main.py <arquivo_entrada> <arquivo_saida.xlsx>
+  🔹 Usage:
+    python main.py <input_file> <output_file.xlsx>
 
-🔹 Exemplo:
-    python main.py relatorio.html relatorio.xlsx
+  🔹 Example:
+    python main.py report.html report.xlsx
 
-🔹 Opções:
-    --help       Exibe esta mensagem de ajuda e sai.
+  🔹 Options:
+    --help       Displays this help message and exits.
 
-🔹 Instalação:
-    Antes de executar o script, instale as dependências do Python.
+  🔹 Installation:
+    Before running the script, install the Python dependencies.
 
     🖥️ Windows:
-        1️⃣ Instale o Python: https://www.python.org/downloads/
-        2️⃣ Abra o terminal (cmd ou PowerShell)
-        3️⃣ Execute:
-            pip install openpyxl lxml tqdm
+      1️⃣ Install Python: https://www.python.org/downloads/
+      2️⃣ Open the terminal (cmd or PowerShell)
+      3️⃣ Run:
+        pip install openpyxl lxml tqdm
 
-    🐧 Linux (Ubuntu, Debian e outros):
-        1️⃣ Instale o Python e dependências:
-            sudo apt update && sudo apt install python3 python3-pip -y
-        2️⃣ Execute:
-            pip install openpyxl lxml tqdm
+    🐧 Linux (Ubuntu, Debian, and others):
+      1️⃣ Install Python and dependencies:
+        sudo apt update && sudo apt install python3 python3-pip -y
+      2️⃣ Run:
+        pip install openpyxl lxml tqdm
 
     🍏 macOS:
-        1️⃣ Instale o Python (se não tiver):
-            brew install python3
-        2️⃣ Execute:
-            pip install openpyxl lxml tqdm
+      1️⃣ Install Python (if not already installed):
+        brew install python3
+      2️⃣ Run:
+        pip install openpyxl lxml tqdm
 
-🔹 Dependências:
-    - openpyxl  (para criar arquivos Excel)
-    - lxml      (para processar HTML)
-    - tqdm      (para exibir barra de progresso)
+  🔹 Dependencies:
+    - openpyxl  (to create Excel files)
+    - lxml      (to process HTML)
+    - tqdm      (to display progress bar)
 
-🔥 Desenvolvido para facilitar a extração de dados de relatórios HTML para Excel!
-"""
+  🔥 Developed to facilitate the extraction of data from HTML reports to Excel!
+  """
     print(help_text)
     sys.exit(0)

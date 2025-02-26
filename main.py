@@ -3,14 +3,14 @@ from html_to_excel import convert_html_to_excel
 from utils import print_help
 
 if __name__ == "__main__":
-    # Verifica se o usuário pediu a ajuda
+    # Check if the user asked for help
     if len(sys.argv) == 2 and sys.argv[1] in ["--help", "-h"]:
         print_help()
 
-    # Verifica se os argumentos foram passados corretamente
+    # Check if the arguments were passed correctly
     if len(sys.argv) < 3:
-        print("❌ Erro: Argumentos insuficientes!")
-        print("🔹 Use --help para mais informações.")
+        print("❌ Error: Insufficient arguments!")
+        print("🔹 Use --help for more information.")
         sys.exit(1)
 
     html_file = sys.argv[1]
