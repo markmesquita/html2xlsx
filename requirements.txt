@@ -1,0 +1,3 @@
+﻿openpyxl
+lxml
+tqdm
